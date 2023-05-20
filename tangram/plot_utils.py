@@ -92,6 +92,8 @@ def plot_training_scores(adata_map, bins=10, alpha=0.7):
     )
 
     plt.tight_layout()
+    # EDITED save figure
+    plt.savefig("figures/scores_DF-L1_S1.png")
 
 
 def plot_gene_sparsity(
@@ -205,11 +207,13 @@ def plot_cell_annotation_sc(
     if 'spatial' in adata_sp.uns.keys() and spot_size != None and scale_factor != None:
         raise ValueError("Spot Size and Scale Factor should be None when ad_sp.uns['spatial'] exists")
     
+    # EDITED to save plot
     sc.pl.spatial(
         adata_sp, color=annotation_list, cmap="viridis", show=False, frameon=False, spot_size=spot_size,
         scale_factor=scale_factor, alpha_img=alpha_img, bw=bw, ax=ax
     )
 
+    plt.savefig("figures/DF-L1_S1_plot_annotation.png")
     adata_sp.obs.drop(annotation_list, inplace=True, errors="ignore", axis=1)
 
 
@@ -676,7 +680,7 @@ def plot_auc(df_all_genes, test_genes=None):
     plt.figure(figsize=(6, 5))
 
     plt.plot(pol_xs, pol_ys, c='r')
-    sns.scatterplot(xs, ys, alpha=0.5, edgecolors='face')
+    plt.scatter(xs, ys, alpha=0.5, edgecolors='face')
         
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.0])
@@ -689,7 +693,8 @@ def plot_auc(df_all_genes, test_genes=None):
     textstr = 'auc_score={}'.format(np.round(metric_dict['auc_score'], 3))
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.3)
     # place a text box in upper left in axes coords
-    plt.text(0.03, 0.1, textstr, fontsize=11, verticalalignment='top', bbox=props);
+    plt.text(0.03, 0.1, textstr, fontsize=11, verticalalignment='top', bbox=props)
+    plt.savefig("figures/auc_DF-L1_S1.png");
 
     
 # Colors used in the manuscript for deterministic assignment.
